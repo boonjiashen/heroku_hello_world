@@ -45,5 +45,4 @@ people = [Person(name=name, height_in_cm=generate_height()) for name in names]
 session.add_all(people)
 session.commit()
 
-print(people)
 print "added people!"
