@@ -1,30 +1,24 @@
 import os
 from flask import Flask
-
-default_port = 5000
-default_host = '0.0.0.0'
+from setup_tables import Person, Base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
+
+# Boiler-plate stuff
+assert 'DATABASE_URL' in os.environ
+engine = create_engine(os.environ['DATABASE_URL'])
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
 
 @app.route("/")
 def hello():
     return " Woohoo! Hello world!"
 
-def main():
-    # Get app parameters
-    port = int(os.environ['PORT'])  \
-            if 'PORT' in os.environ  \
-            else default_port
-
-    # Print default status
-    if 'PORT' not in os.environ:
-        print('No environment variable PORT, defaulting to port=%i'  %
-                default_port)
-
-    # Run app
-    kwargs = {'host':default_host, 'port':port}
-    app.run(**kwargs)
-
-if __name__ == "__main__":
-    main()
-
+@app.route("/people")
+def show_people():
+    people = session.query(Person).all()
+    return '<p>'.join([person.name + " " + str(person.height_in_cm)
+        for person in people])
