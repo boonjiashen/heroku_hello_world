@@ -8,10 +8,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello world!"
+    return " Woohoo! Hello world!"
 
-if __name__ == "__main__":
-
+def main():
     # Get app parameters
     port = int(os.environ['PORT'])  \
             if 'PORT' in os.environ  \
@@ -25,3 +24,7 @@ if __name__ == "__main__":
     # Run app
     kwargs = {'host':default_host, 'port':port}
     app.run(**kwargs)
+
+if __name__ == "__main__":
+    main()
+
