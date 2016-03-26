@@ -7,8 +7,8 @@ your app on your local machine
 
 ##Requirements
 
-flask, gunicorn, heroku toolbelt
+heroku toolbelt
 
 ##To run
 
-    >> source run_locally.sh
+    >> source run_remotely.sh
