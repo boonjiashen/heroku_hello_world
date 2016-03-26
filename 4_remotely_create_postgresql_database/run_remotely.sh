@@ -19,3 +19,8 @@ heroku addons:create heroku-postgresql:hobby-dev
 echo -n 'export ' > tmp
 heroku config -s | grep DATABASE_URL >> tmp
 . tmp
+
+python setup_tables.py  # create tables in database
+python populate_tables.py  # insert tuples in tables
+
+git push heroku master  # deploy web app to cloud
